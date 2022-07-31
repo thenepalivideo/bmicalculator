@@ -28,6 +28,10 @@ class BmiCalculator extends StatefulWidget {
 }
 
 class _BmiCalculatorState extends State<BmiCalculator> {
+  TextEditingController height = TextEditingController();
+  TextEditingController weight = TextEditingController();
+  double bmi = 0;
+  String message = "BMI Value";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,21 +44,23 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                   color: Colors.black12,
                   width: double.infinity,
                   height: 150,
-                  child: Text("Display"),
+                  child: Text("BMI Calculator"),
                 ),
                 Container(
                     child: Form(
                         child: Column(
                   children: [
                     TextFormField(
+                      controller: height,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: "Age",
-                        helperText: "Your Age",
-                        hintText: "years",
+                        labelText: "height",
+                        helperText: "Your height in meter",
+                        hintText: "meter",
                       ),
                     ),
                     TextFormField(
+                      controller: weight,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: "Weight",
@@ -62,10 +68,39 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                         hintText: "KG",
                       ),
                     ),
-                    ElevatedButton(onPressed: () {}, child: Text("Submit")),
+                    ElevatedButton(
+                        onPressed: () {
+                          double sqheight = double.parse(height.text) *
+                              double.parse(height.text);
+                          int bmi =
+                              (double.parse(weight.text) / sqheight).round();
+                          if (bmi <= 18) {
+                            setState(() {
+                              message = "Under Weight ";
+                            });
+                          } else if (bmi <= 25) {
+                            setState(() {
+                              message = "Normal Weight ";
+                            });
+                          } else if (bmi <= 30) {
+                            setState(() {
+                              message = "Over Weight ";
+                            });
+                          } else if (bmi <= 35) {
+                            setState(() {
+                              message = "Extermly Obese Weight ";
+                            });
+                          } else {
+                            setState(() {
+                              message = "Extermly Over Weight";
+                            });
+                          }
+                          ;
+                        },
+                        child: Text("Submit")),
                   ],
                 ))),
-                Text("Result")
+                Text(message)
               ]),
         ),
       ),
