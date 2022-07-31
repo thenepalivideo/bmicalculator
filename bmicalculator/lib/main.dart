@@ -30,6 +30,45 @@ class BmiCalculator extends StatefulWidget {
 class _BmiCalculatorState extends State<BmiCalculator> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  color: Colors.black12,
+                  width: double.infinity,
+                  height: 150,
+                  child: Text("Display"),
+                ),
+                Container(
+                    child: Form(
+                        child: Column(
+                  children: [
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: "Age",
+                        helperText: "Your Age",
+                        hintText: "years",
+                      ),
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: "Weight",
+                        helperText: "Your Weight",
+                        hintText: "KG",
+                      ),
+                    ),
+                    ElevatedButton(onPressed: () {}, child: Text("Submit")),
+                  ],
+                ))),
+                Text("Result")
+              ]),
+        ),
+      ),
+    );
   }
 }
